@@ -4,6 +4,8 @@ using Products.Endpoints;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.AddServiceDefaults();
+
 var productsContext = builder.Configuration.GetConnectionString("ProductsContext")
     ?? throw new InvalidOperationException("Connection string 'ProductsContext' not found.");
 
@@ -11,6 +13,8 @@ builder.Services.AddDbContext<ProductDataContext>(options => options.UseSqlite(p
 
 // Add services to the container.
 var app = builder.Build();
+
+app.MapDefaultEndpoints();
 
 // Configure the HTTP request pipeline.
 app.MapProductEndpoints();
